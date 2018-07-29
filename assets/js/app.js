@@ -532,13 +532,17 @@ attributionControl.onAdd = function (map) {
 };
 map.addControl(attributionControl);
 
-//tombol zoom to extent yang ada di sebelah kiri atas
-var tombolZoomExtent = document.getElementById('tombol-zoomExtent');
-tombolZoomExtent.addEventListener('click',function(){
- map.fitBounds(boroughs.getBounds());
+// //tombol zoom to extent yang ada di sebelah kiri atas
+// var tombolZoomExtent = document.getElementById('tombol-zoomExtent');
+// tombolZoomExtent.addEventListener('click',function(){
+//  map.fitBounds(boroughs.getBounds());
+// });
+
+$("#tombol-zoomExtent").click(function() {
+  map.fitBounds(boroughs.getBounds());
+  //$(".navbar-collapse.in").collapse("hide");
+  return false;
 });
-
-
 
 
 //tombol zoom yang ada disebelah kanan bawah
