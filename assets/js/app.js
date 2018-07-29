@@ -439,6 +439,13 @@ attributionControl.onAdd = function (map) {
 };
 map.addControl(attributionControl);
 
+//fungsi tombol zoomextend ketika di click
+ $("#tombol-zoomExtent").click(function() {
+   map.fitBounds(boroughs.getBounds());
+//   //$(".navbar-collapse.in").collapse("hide");
+   return false;
+ });
+
 var zoomControl = L.control.zoom({
   position: "bottomright"
 }).addTo(map);
