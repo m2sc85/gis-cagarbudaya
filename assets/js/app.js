@@ -99,16 +99,27 @@ function syncSidebar() {
   /* Empty sidebar features */
   $("#feature-list tbody").empty();
 
-   /* Loop through cagarbudaya layer and add only features which are in the map bounds */
+  //  /* Loop through cagarbudaya layer and add only features which are in the map bounds */
+  // cagarbudaya.eachLayer(function (layer) {
+  //   if (map.hasLayer(cagarbudayaLayer)) {
+  //     if (map.getBounds().contains(layer.getLatLng())) {
+  //         $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/'+layer.feature.properties.JPG+'""></td><td class="feature-name">' + layer.feature.properties.Nama + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+
+  //     }
+  //   }
+
+  // });
+
+   /* Loop through theaters layer and add only features which are in the map bounds */
   cagarbudaya.eachLayer(function (layer) {
     if (map.hasLayer(cagarbudayaLayer)) {
       if (map.getBounds().contains(layer.getLatLng())) {
-          $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/'+layer.feature.properties.JPG+'""></td><td class="feature-name">' + layer.feature.properties.Nama + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
-
+        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/theater.png"></td><td class="feature-name">' + layer.feature.properties.Nama + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     }
-
   });
+
+
   /* Loop through theaters layer and add only features which are in the map bounds */
   theaters.eachLayer(function (layer) {
     if (map.hasLayer(theaterLayer)) {
@@ -315,12 +326,12 @@ var cagarbudaya = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, {
       icon: L.icon({
-        iconUrl: "assets/img/"+feature.properties.JPG,
+        iconUrl: "assets/img/theater.png",
         iconSize: [24, 28],
         iconAnchor: [12, 28],
         popupAnchor: [0, -25]
       }),
-      title: feature.properties.NAME,
+      title: feature.properties.Nama,
       riseOnHover: true
     });
   },
@@ -338,7 +349,7 @@ var cagarbudaya = L.geoJson(null, {
           $("#featureModal").modal("show");
           highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
            var posisi = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]);
-        
+        // console.log(feature.geometry.coordinates[1] +' dan ' + feature.geometry.coordinates[0]);
        // map.panTo(posisi,{animate:true});
        map.setView(posisi, 18);
         }
@@ -538,11 +549,11 @@ map.addControl(attributionControl);
 //  map.fitBounds(boroughs.getBounds());
 // });
 
-$("#tombol-zoomExtent").click(function() {
-  map.fitBounds(boroughs.getBounds());
-  //$(".navbar-collapse.in").collapse("hide");
-  return false;
-});
+// $("#tombol-zoomExtent").click(function() {
+//   map.fitBounds(boroughs.getBounds());
+//   //$(".navbar-collapse.in").collapse("hide");
+//   return false;
+// });
 
 
 //tombol zoom yang ada disebelah kanan bawah
