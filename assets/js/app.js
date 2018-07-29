@@ -1,4 +1,4 @@
-var map, featureList, cagarbudayaSearch =[], boroughSearch = [], theaterSearch = [], museumSearch = [];
+var map, featureList, boroughSearch = [], cagarbudayaSearch = [], museumSearch = [];
 
 $(window).resize(function() {
   sizeLayerControl();
@@ -34,13 +34,6 @@ $("#legend-btn").click(function() {
   $(".navbar-collapse.in").collapse("hide");
   return false;
 });
-/* Bagian Pencarian Posisi Koordinate */
-$("#find-coordinate-btn").click(function() {
-  $("#findCoordinateModal").modal("show");
- $(".navbar-collapse.in").collapse("hide");
-  return false;
-});
-
 
 $("#login-btn").click(function() {
   $("#loginModal").modal("show");
@@ -98,33 +91,11 @@ function sidebarClick(id) {
 function syncSidebar() {
   /* Empty sidebar features */
   $("#feature-list tbody").empty();
-
-  //  /* Loop through cagarbudaya layer and add only features which are in the map bounds */
-  // cagarbudaya.eachLayer(function (layer) {
-  //   if (map.hasLayer(cagarbudayaLayer)) {
-  //     if (map.getBounds().contains(layer.getLatLng())) {
-  //         $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/'+layer.feature.properties.JPG+'""></td><td class="feature-name">' + layer.feature.properties.Nama + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
-
-  //     }
-  //   }
-
-  // });
-
-   /* Loop through theaters layer and add only features which are in the map bounds */
+  /* Loop through cagarbudaya layer and add only features which are in the map bounds */
   cagarbudaya.eachLayer(function (layer) {
     if (map.hasLayer(cagarbudayaLayer)) {
       if (map.getBounds().contains(layer.getLatLng())) {
         $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/theater.png"></td><td class="feature-name">' + layer.feature.properties.Nama + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
-      }
-    }
-  });
-
-
-  /* Loop through theaters layer and add only features which are in the map bounds */
-  theaters.eachLayer(function (layer) {
-    if (map.hasLayer(theaterLayer)) {
-      if (map.getBounds().contains(layer.getLatLng())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/theater.png"></td><td class="feature-name">' + layer.feature.properties.NAME + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     }
   });
@@ -177,7 +148,6 @@ var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
 
 //tutup baselayer
 
-
 /* Overlay Layers */
 var highlight = L.geoJson(null);
 var highlightStyle = {
@@ -186,6 +156,7 @@ var highlightStyle = {
   fillOpacity: 0.7,
   radius: 10
 };
+
 //ADMIN COLOR
 //menampung variabel warna kecamatan
 var kecColors={
@@ -215,9 +186,7 @@ function style_kecamatan(feature) {
 var boroughs = L.geoJson(null, {
   style: style_kecamatan,
   onEachFeature: function (feature, layer) {
-
-   
-  if (feature.properties) {
+    if (feature.properties) {
       var content = "<table class='table table-striped table-bordered table-condensed'>" 
     + "<tr><th>Nama Kecamatan</th><td>" + feature.properties.Kecamatan + "</td></tr>" 
      + "<tr><th>Nama Kecamatan</th><td>" + feature.properties.Kelurahan + "</td></tr>" 
@@ -254,19 +223,16 @@ var boroughs = L.geoJson(null, {
      
   }
     boroughSearch.push({
-      name: layer.feature.properties.Kelurahan,
+      name: layer.feature.properties.BoroName,
       source: "Boroughs",
       id: L.stamp(layer),
       bounds: layer.getBounds()
     });
-
-  
   }
 });
 $.getJSON("data/boroughs.geojson", function (data) {
   boroughs.addData(data);
 });
-
 
 var subwayLines = L.geoJson(null, {
   style: function (feature) {
@@ -319,7 +285,6 @@ var markerClusters = new L.MarkerClusterGroup({
   disableClusteringAtZoom: 16
 });
 
-/*Layer cagarbudaya
 /* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
 var cagarbudayaLayer = L.geoJson(null);
 var cagarbudaya = L.geoJson(null, {
@@ -335,7 +300,7 @@ var cagarbudaya = L.geoJson(null, {
       riseOnHover: true
     });
   },
-  onEachFeature: function (feature, layer) {
+ onEachFeature: function (feature, layer) {
   if (feature.properties) {
       var content = "<table class='table table-striped table-bordered table-condensed'>" 
       + "<tr><th>NAMA</th><td>" + feature.properties.Nama + "</td></tr>"
@@ -368,52 +333,6 @@ var cagarbudaya = L.geoJson(null, {
 $.getJSON("data/cagarbudaya.geojson", function (data) {
   cagarbudaya.addData(data);
   map.addLayer(cagarbudayaLayer);
-});
-
-
-/*tutup layer cagarbudaya
-
-/* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
-var theaterLayer = L.geoJson(null);
-var theaters = L.geoJson(null, {
-  pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: "assets/img/theater.png",
-        iconSize: [24, 28],
-        iconAnchor: [12, 28],
-        popupAnchor: [0, -25]
-      }),
-      title: feature.properties.NAME,
-      riseOnHover: true
-    });
-  },
-  onEachFeature: function (feature, layer) {
-    if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Name</th><td>" + feature.properties.NAME + "</td></tr>" + "<tr><th>Phone</th><td>" + feature.properties.TEL + "</td></tr>" + "<tr><th>Address</th><td>" + feature.properties.ADDRESS1 + "</td></tr>" + "<tr><th>Website</th><td><a class='url-break' href='" + feature.properties.URL + "' target='_blank'>" + feature.properties.URL + "</a></td></tr>" + "<table>";
-      layer.on({
-        click: function (e) {
-          $("#feature-title").html(feature.properties.NAME);
-          $("#feature-info").html(content);
-          $("#featureModal").modal("show");
-          highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
-        }
-      });
-      $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/theater.png"></td><td class="feature-name">' + layer.feature.properties.NAME + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
-      theaterSearch.push({
-        name: layer.feature.properties.NAME,
-        address: layer.feature.properties.ADDRESS1,
-        source: "Theaters",
-        id: L.stamp(layer),
-        lat: layer.feature.geometry.coordinates[1],
-        lng: layer.feature.geometry.coordinates[0]
-      });
-    }
-  }
-});
-$.getJSON("data/DOITT_THEATER_01_13SEPT2010.geojson", function (data) {
-  theaters.addData(data);
-  map.addLayer(theaterLayer);
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove museums to markerClusters layer */
@@ -459,40 +378,21 @@ $.getJSON("data/DOITT_MUSEUM_01_13SEPT2010.geojson", function (data) {
 });
 
 map = L.map("map", {
-  zoom: 18,
-  center: [-5.519409, 122.826181],
+  zoom: 10,
+  center: [40.702222, -73.979378],
   layers: [cartoLight, boroughs, markerClusters, highlight],
   zoomControl: false,
- // defaultExtentControl:true,
   attributionControl: false
 });
 
-
-//find coordinate atau cari posisi koordinat
-$("#btn-inputCoordiante").click(function() {
- let lintang = document.getElementById("lintang").value;
- let bujur = document.getElementById("bujur").value;
-map.setView([lintang, bujur], 20);
-  highlight.clearLayers().addLayer(L.circleMarker([lintang, bujur], highlightStyle));
-
-});
-
-//plugin zoombar
-//var zoom_bar = new L.Control.ZoomBar({position: 'topleft'}).addTo(map);
-
-
 /* Layer control listeners that allow for a single markerClusters layer */
 map.on("overlayadd", function(e) {
-  if (e.layer === theaterLayer) {
-    markerClusters.addLayer(theaters);
+  if (e.layer === cagarbudayaLayer) {
+    markerClusters.addLayer(cagarbudaya);
     syncSidebar();
   }
   if (e.layer === museumLayer) {
     markerClusters.addLayer(museums);
-    syncSidebar();
-  }
-    if (e.layer === cagarbudayaLayer) {
-    markerClusters.addLayer(cagarbudaya);
     syncSidebar();
   }
 });
@@ -504,10 +404,6 @@ map.on("overlayremove", function(e) {
   }
   if (e.layer === museumLayer) {
     markerClusters.removeLayer(museums);
-    syncSidebar();
-  }
-    if (e.layer === cagarbudayaLayer) {
-    markerClusters.removeLayer(cagarbudaya);
     syncSidebar();
   }
 });
@@ -538,25 +434,11 @@ var attributionControl = L.control({
 });
 attributionControl.onAdd = function (map) {
   var div = L.DomUtil.create("div", "leaflet-control-attribution");
-  div.innerHTML = "<span class='hidden-xs'>Developed by Firmansyah | </span><a href='#' onclick='$(\"#attributionModal\").modal(\"show\"); return false;'>Attribution</a>";
+  div.innerHTML = "<span class='hidden-xs'>Developed by <a href='http://bryanmcbride.com'>bryanmcbride.com</a> | </span><a href='#' onclick='$(\"#attributionModal\").modal(\"show\"); return false;'>Attribution</a>";
   return div;
 };
 map.addControl(attributionControl);
 
-// //tombol zoom to extent yang ada di sebelah kiri atas
-// var tombolZoomExtent = document.getElementById('tombol-zoomExtent');
-// tombolZoomExtent.addEventListener('click',function(){
-//  map.fitBounds(boroughs.getBounds());
-// });
-
-// $("#tombol-zoomExtent").click(function() {
-//   map.fitBounds(boroughs.getBounds());
-//   //$(".navbar-collapse.in").collapse("hide");
-//   return false;
-// });
-
-
-//tombol zoom yang ada disebelah kanan bawah
 var zoomControl = L.control.zoom({
   position: "bottomright"
 }).addTo(map);
@@ -580,7 +462,7 @@ var locateControl = L.control.locate({
   icon: "fa fa-location-arrow",
   metric: false,
   strings: {
-    title: "Posisi Saya ",
+    title: "My location",
     popup: "You are within {distance} {unit} from this point",
     outsideMapBoundsMsg: "You seem located outside the boundaries of the map"
   },
@@ -593,13 +475,9 @@ var locateControl = L.control.locate({
   }
 }).addTo(map);
 
-
-// //plugin measure atau pengukuran
-//    L.control.polylineMeasure({position:'bottomright', unit:'metres', clearMeasurementsOnStop: false, 
-//     showMeasurementsClearControl: true, showUnitControl: true}).addTo(map);
-
 /* tampilkan skala peta */
 var scaleControl =  L.control.scale().addTo(map);
+
 
 /* Larger screens get expanded layer control and visible sidebar */
 if (document.body.clientWidth <= 767) {
@@ -624,24 +502,7 @@ var groupedOverlays = {
    
   }
 };
-//legenda Kecamatan
-// var legend = L.control({position:"bottomright"});
-// legend.onAdd = function(map){
-//   var div = L.DomUtil.create('div','legend');
-//  //    "KEC. BATUPOARO":"rgba(40,96,144,1.0)",
-//  //  "KEC. BETOAMBARI":"rgba(234,137,150,1.0)",
-//  //  "KEC. BUNGI" : "rgba(228,243,98,1.0)",
-//  //  "KEC. KOKALUKUNA" : "rgba(121,185,0,1.0)",
-//  //  "KEC. LEA-LEA" : "rgba(184,71,255,1.0)",
-//  //  "KEC. MURHUM" : "rgba(237,66,36,1.0)",
-//  // "KEC. SORAWOLIO" : "rgba(120,200,96,60.0)",
-//  //  "KEC. WOLIO" : "rgba(102,230,6,60.0)"
-// div.innerHTML +="<i style =width:10px;background:'rgba(40,96,144,1.0)'>&nbsp;&nbsp;</i>&nbsp;&nbsp; Kec.Batupoaro <Br>";
-// return div;
-// }
-// legend.addTo(map);
 
-//tutup legenda kecamatan
 var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {
   collapsed: isCollapsed
 }).addTo(map);
@@ -681,23 +542,13 @@ $(document).one("ajaxStop", function () {
     limit: 10
   });
 
-   var cagarbudayaBH = new Bloodhound({
+  var cagarbudayaBH = new Bloodhound({
     name: "cagarbudaya",
     datumTokenizer: function (d) {
       return Bloodhound.tokenizers.whitespace(d.name);
     },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     local: cagarbudayaSearch,
-    limit: 10
-  });
-
-  var theatersBH = new Bloodhound({
-    name: "Theaters",
-    datumTokenizer: function (d) {
-      return Bloodhound.tokenizers.whitespace(d.name);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: theaterSearch,
     limit: 10
   });
 
@@ -710,7 +561,6 @@ $(document).one("ajaxStop", function () {
     local: museumSearch,
     limit: 10
   });
-
 
   var geonamesBH = new Bloodhound({
     name: "GeoNames",
@@ -744,7 +594,6 @@ $(document).one("ajaxStop", function () {
   });
   boroughsBH.initialize();
   cagarbudayaBH.initialize();
-  theatersBH.initialize();
   museumsBH.initialize();
   geonamesBH.initialize();
 
@@ -765,15 +614,7 @@ $(document).one("ajaxStop", function () {
     displayKey: "name",
     source: cagarbudayaBH.ttAdapter(),
     templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/img/theater.png' width='24' height='28'>&nbsp;cagarbudaya Jalan</h4>",
-      suggestion: Handlebars.compile(["{{name}}<br>&nbsp;<small>{{address}}</small>"].join(""))
-    }
-   }, {
-    name: "Theaters",
-    displayKey: "name",
-    source: theatersBH.ttAdapter(),
-    templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/img/theater.png' width='24' height='28'>&nbsp;Theaters</h4>",
+      header: "<h4 class='typeahead-header'><img src='assets/img/theater.png' width='24' height='28'>&nbsp;Cagar Budaya</h4>",
       suggestion: Handlebars.compile(["{{name}}<br>&nbsp;<small>{{address}}</small>"].join(""))
     }
   }, {
@@ -784,7 +625,6 @@ $(document).one("ajaxStop", function () {
       header: "<h4 class='typeahead-header'><img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums</h4>",
       suggestion: Handlebars.compile(["{{name}}<br>&nbsp;<small>{{address}}</small>"].join(""))
     }
-
   }, {
     name: "GeoNames",
     displayKey: "name",
@@ -796,20 +636,9 @@ $(document).one("ajaxStop", function () {
     if (datum.source === "Boroughs") {
       map.fitBounds(datum.bounds);
     }
-
-     if (datum.source === "cagarbudaya") {
+    if (datum.source === "cagarbudaya") {
       if (!map.hasLayer(cagarbudayaLayer)) {
         map.addLayer(cagarbudayaLayer);
-      }
-      map.setView([datum.lat, datum.lng], 17);
-      if (map._layers[datum.id]) {
-        map._layers[datum.id].fire("click");
-      }
-    }
-
-    if (datum.source === "Theaters") {
-      if (!map.hasLayer(theaterLayer)) {
-        map.addLayer(theaterLayer);
       }
       map.setView([datum.lat, datum.lng], 17);
       if (map._layers[datum.id]) {
@@ -851,3 +680,4 @@ if (!L.Browser.touch) {
 } else {
   L.DomEvent.disableClickPropagation(container);
 }
+
