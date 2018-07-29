@@ -338,7 +338,7 @@ var cagarbudaya = L.geoJson(null, {
           $("#featureModal").modal("show");
           highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
            var posisi = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]);
-        console.log(feature.geometry.coordinates[1] +' dan ' + feature.geometry.coordinates[0]);
+        
        // map.panTo(posisi,{animate:true});
        map.setView(posisi, 18);
         }
