@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#000000">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>BootLeaf</title>
+    <title>Sistem Informasi Geografis Cagar Budaya Kota Baubau</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -35,7 +35,7 @@
             <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i class="fa fa-bars fa-lg white"></i></a>
             <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i class="fa fa-search fa-lg white"></i></a>
           </div>
-          <a class="navbar-brand" href="#">BootLeaf</a>
+          <a class="navbar-brand" href="#">GIS Cagar Budaya</a>
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" role="search">
@@ -45,26 +45,19 @@
             </div>
           </form>
           <ul class="nav navbar-nav">
-            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About</a></li>
+            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;Informasi</a></li>
             <li class="dropdown">
               <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Tools <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="full-extent-btn"><i class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="legend-btn"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Show Legend</a></li>
+                  <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="find-coordinate-btn"><i class="fa fa-crosshairs"></i>&nbsp;&nbsp;Find Coordinate</a></li>
+              
                 <li class="divider hidden-xs"></li>
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="login-btn"><i class="fa fa-user"></i>&nbsp;&nbsp;Login</a></li>
+                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="lokasi-btn"><i class="fa fa-user"></i>&nbsp;&nbsp;Lokasi Saya</a></li>
               </ul>
             </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" id="downloadDrop" href="#" role="button" data-toggle="dropdown"><i class="fa fa-cloud-download white"></i>&nbsp;&nbsp;Download <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="data/boroughs.geojson" download="boroughs.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Boroughs</a></li>
-                  <li><a href="data/subways.geojson" download="subways.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Subway Lines</a></li>
-                  <li><a href="data/DOITT_THEATER_01_13SEPT2010.geojson" download="theaters.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Theaters</a></li>
-                  <li><a href="data/DOITT_MUSEUM_01_13SEPT2010.geojson" download="museums.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Museums</a></li>
-                </ul>
-            </li>
-            <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="list-btn"><i class="fa fa-list white"></i>&nbsp;&nbsp;POI List</a></li>
+             <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="legend-btn"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Legenda</a></li>
+            <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="list-btn"><i class="fa fa-list white"></i>&nbsp;&nbsp;POI Cagar Budaya</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -107,7 +100,11 @@
           </div>
         </div>
       </div>
-      <div id="map"></div>
+      <div id="map">
+         <div class="leaflet-top leaflet-left">
+           <button type="button" data-toggle="tooltip" title="Zoom To Extent" class="leaflet-control" id="tombol-zoomExtent" /><i class="fa fa-arrows-alt"></i></button>
+         </div>
+      </div>
     </div>
     <div id="loading">
       <div class="loading-indicator">
@@ -122,42 +119,54 @@
         <div class="modal-content">
           <div class="modal-header">
             <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Welcome to the BootLeaf template!</h4>
+            <h4 class="modal-title">Selamat Datang di Website Sistem Informasi Geografis Cagar Budaya Kota Baubau</h4>
           </div>
           <div class="modal-body">
             <ul class="nav nav-tabs nav-justified" id="aboutTabs">
-              <li class="active"><a href="#about" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the project</a></li>
+              <li class="active"><a href="#about" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;Tentang Aplikasi</a></li>
+             
+              <li><a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Informasi Cagar Budaya</a></li>
+             <li><a href="#baubau-info" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Sekilas Kota Baubau</a></li>
               <li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contact us</a></li>
-              <li><a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i>&nbsp;Metadata <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#boroughs-tab" data-toggle="tab">Boroughs</a></li>
-                  <li><a href="#subway-lines-tab" data-toggle="tab">Subway Lines</a></li>
-                  <li><a href="#theaters-tab" data-toggle="tab">Theaters</a></li>
-                  <li><a href="#museums-tab" data-toggle="tab">Museums</a></li>
-                </ul>
-              </li>
+              
             </ul>
             <div class="tab-content" id="aboutTabsContent">
               <div class="tab-pane fade active in" id="about">
-                <p>A simple, responsive template for building web mapping applications with <a href="http://getbootstrap.com/">Bootstrap 3</a>, <a href="http://leafletjs.com/" target="_blank">Leaflet</a>, and <a href="http://twitter.github.io/typeahead.js/" target="_blank">typeahead.js</a>. Open source, MIT licensed, and available on <a href="https://github.com/bmcbride/bootleaf" target="_blank">GitHub</a>.</p>
+                <p>Kota Baubau merupakan kota yang terkenal dengan Benteng terbesar di dunia. Baubau sebagai kota budaya memiliki banyak bangunan cagar budaya dengan berbagai karateristik dan jenis yang beraneka ragam. Sebagai upaya untuk memperkenalkan bangunan cagar budaya penggunaan teknologi informasi perlu mengoptimalkan perkembangan teknologi informasi saat ini yang menggunakan teknologi berbasis web dan mobile android yang dapat di akses melalui smartphone. </p>
+                <p>Dengan penggunaan smartphone aplikasi sistem informasi yang dikembangkan dapat diakses lebih mudah. Dengan adanya sistem informasi geografis bangunan cagar budaya berbasis web dan mobile ini diharapkan pengaksesan informasi dapat dilakukan dengan mudah. Hal lain yang perlu diperhatikan adalah promosi atau menyampaikan informasi kepada masyarakat tentang keberadaan sistem informasi geografis bangunan cagar budaya ini.</p>
                 <div class="panel panel-primary">
-                  <div class="panel-heading">Features</div>
+                  <div class="panel-heading">Fitur -fitur Aplikasi </div>
                   <ul class="list-group">
-                    <li class="list-group-item">Fullscreen mobile-friendly map template with responsive navbar and modal placeholders</li>
-                    <li class="list-group-item">jQuery loading of external GeoJSON files</li>
-                    <li class="list-group-item">Logical multiple layer marker clustering via the <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">leaflet marker cluster plugin</a></li>
-                    <li class="list-group-item">Elegant client-side multi-layer feature search with autocomplete using <a href="http://twitter.github.io/typeahead.js/" target="_blank">typeahead.js</a></li>
-                    <li class="list-group-item">Responsive sidebar feature list synced with map bounds, which includes sorting and filtering via <a href="http://listjs.com/" target="_blank">list.js</a></li>
-                    <li class="list-group-item">Marker icons included in grouped layer control via the <a href="https://github.com/ismyrnow/Leaflet.groupedlayercontrol" target="_blank">grouped layer control plugin</a></li>
+                    <li class="list-group-item">Responsive - Dapat di akses melalui media laptop maupun smartphone</li>
+                    <li class="list-group-item">Tampilan Menarik - Aplikasi ini di desain dengan tampilan yang menarik </li>
+                    <li class="list-group-item">Informasi Cagar Budaya di tampilkan secara lengkap di lengkapi dengan foto </li>
+                    <li class="list-group-item">Auto Complete Pencarian </li>
+                    <li class="list-group-item">Responsive sidebar yang menampilkan daftar cagar budaya di Kota Baubau yang dapat di  sorting and filtering </li>
+                    <li class="list-group-item">Tampilan Marker icons yang menarik </li>
                   </ul>
                 </div>
               </div>
               <div id="disclaimer" class="tab-pane fade text-danger">
-                <p>The data provided on this site is for informational and planning purposes only.</p>
-                <p>Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.</p>
+             <h3> INFORMASI CAGAR BUDAYA 5 Kategori Cagar Budaya</h3>  
+                <p>1.BENDA <br>
+Benda Cagar Budaya adalah benda alam dan/atau benda buatan manusia, baik bergerak maupun tidak bergerak, berupa kesatuan atau kelompok, atau bagian-bagiannya, atau sisa-sisanya yang memiliki hubungan erat dengan kebudayaan dan sejarah perkembangan manusia.</p>
+                <p>2. SRUKTUR <br>
+Struktur Cagar Budaya adalah susunan binaan yang terbuat dari benda alam dan/atau benda buatan manusia untuk memenuhi kebutuhan ruang kegiatan yang menyatu dengan alam, sarana, dan prasarana untuk menampung kebutuhan manusia..</p>
+  <p>3.BANGUNAN <br>
+Bangunan Cagar Budaya adalah susunan binaan yang terbuat dari benda alam atau benda buatan manusia untuk memenuhi kebutuhan ruang berdinding dan/atau tidak berdinding, dan beratap.</p>
               </div>
+
+               <div id="baubau-info" class="tab-pane fade text-success">
+             <h3> Sekilas Kota Baubau</h3>  
+                <p>Kota Baubau berada di Pulau Buton yang terletak di sebelah tenggara jazirah Pulau Sulawesi. Pulau ini diapit oleh lautan, yaitu Laut Banda di sebelah utara dan timur, kemudian Laut Flores di sebelah selatannya, sedangkan di sebelah barat terdapat Selat Buton dan Teluk Bone. </p>
+
+                <p>Dari sisi letak secara nasional, Kota Baubau merupakan kota yang memiliki letak strategis. Kota Baubau adalah daerah penghubung (connecting area) antara Kawasan Barat Indonesia (KBI) dengan Kawasan Timur Indonesia (KTI). Selain itu bagi masyarakat daerah hinterlandnya (Kabupaten Buton, Kabupaten Muna, Kabupaten Wakatobi, Kabupaten Bombana, Kabupaten Buton Tengah dan Kabupaten Buton Selatan), Kota Baubau berperan sebagai daerah akumulator hasil produksi dan distributor kebutuhan daerah tersebut. Kota Baubau yang berada pada Selat Baubau dan merupakan mulut Tenggara dari wilayah Laut Teluk Bone berada pada pergeseran titik episentrum ekonomi kelautan kawasan pasifik sebagai masa depan bagi pertumbuhan kawasan Timur Indonesia.</p>
+
+                <p>Dalam rangka desentralisasi wewenang (otonomi daerah), maka pembangunan Kota Baubau berbasis kepulauan untuk membangun masa depan dengan memanfaatkan nilai strategis Kota Baubau yang terletak pada Kawasan Wallacea dan pusat segitiga karang dunia (coral triangle). Posisi geografis yang stategis ini juga menjadikan Baubau memiliki peranan  penting dalam jalur pelayaran nasional dan berkembang sebagai pusat aktifitas penduduk terutama di sektor perdagangan dan jasa. Pelabuhan di kota ini berfungsi sebagai jalur transit atau persinggahan yang menghubungkan jalur pelayaran antara Makassar, Maluku dan Papua. Bahkan peranannya sebagai pelabuhan transit telah berlangsung sejak abad 16 pada masa Kesultanan Buton.</p>
+   
+              </div>
+
+
               <div class="tab-pane fade" id="contact">
                 <form id="contact-form">
                   <div class="well well-sm">
@@ -189,18 +198,7 @@
                   </div>
                 </form>
               </div>
-              <div class="tab-pane fade" id="boroughs-tab">
-                <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/pdf/bytes/nybbwi_metadata.pdf" target="_blank">New York City Department of City Planning</a></p>
-              </div>
-              <div class="tab-pane fade" id="subway-lines-tab">
-                <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
-              </div>
-              <div class="tab-pane fade" id="theaters-tab">
-                <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
-              </div>
-              <div class="tab-pane fade" id="museums-tab">
-                <p>Museum data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
-              </div>
+            
             </div>
           </div>
           <div class="modal-footer">
@@ -235,7 +233,7 @@
             <h4 class="modal-title">Login</h4>
           </div>
           <div class="modal-body">
-            <form id="login-form">
+            <form id="contact-form-login">
               <fieldset>
                 <div class="form-group">
                   <label for="name">Username:</label>
@@ -251,6 +249,34 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary" data-dismiss="modal">Login</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+ <div class="modal fade" id="findCoordinateModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Cari Posisi Koordinat</h4>
+          </div>
+          <div class="modal-body">
+            <form id="input-coordinateForm">
+              <fieldset>
+                <div class="form-group">
+                  <label for="name">Latitude:</label>
+                  <input type="text" class="form-control" id="lintang">
+                </div>
+                <div class="form-group">
+                  <label for="name">Longitude:</label> 
+                  <input type="text" class="form-control" id="bujur">
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <div class="modal-footer" >
+                  <button style="margin-right: 35px;" type="submit" class="btn btn-primary" data-dismiss="modal" id="btn-inputCoordiante"><i class="fa fa-crosshairs"></i> Cari Posisi Koordianat</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
