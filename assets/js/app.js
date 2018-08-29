@@ -156,13 +156,13 @@ var highlightStyle = {
 //menampung variabel warna kecamatan
 var kecColors={
   "KEC. BATUPOARO":"#CEF6D8",
-  "KEC. BETOAMBARI":"rgba(234,137,150,1.0)",
-  "KEC. BUNGI" : "rgba(228,243,98,1.0)",
-  "KEC. KOKALUKUNA" : "rgba(121,185,0,1.0)",
-  "KEC. LEA-LEA" : "rgba(184,71,255,1.0)",
-  "KEC. MURHUM" : "rgba(237,66,36,1.0)",
- "KEC. SORAWOLIO" : "rgba(120,200,96,60.0)",
-  "KEC. WOLIO" : "rgba(102,230,6,60.0)"
+  "KEC. BETOAMBARI":"#F8E0E0",
+  "KEC. BUNGI" : "#CED8F6",
+  "KEC. KOKALUKUNA" : "#F6CEE3",
+  "KEC. LEA-LEA" : "#CEF6EC",
+  "KEC. MURHUM" : "#F2F5A9",
+ "KEC. SORAWOLIO" : "#ECCEF5",
+  "KEC. WOLIO" : "#A9F5D0"
 };
 
 function style_kecamatan(feature) {
