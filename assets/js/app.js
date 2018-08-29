@@ -155,7 +155,7 @@ var highlightStyle = {
 //ADMIN COLOR
 //menampung variabel warna kecamatan
 var kecColors={
-  "KEC. BATUPOARO":"rgba(40,96,144,1.0)",
+  "KEC. BATUPOARO":"#CEF6D8",
   "KEC. BETOAMBARI":"rgba(234,137,150,1.0)",
   "KEC. BUNGI" : "rgba(228,243,98,1.0)",
   "KEC. KOKALUKUNA" : "rgba(121,185,0,1.0)",
