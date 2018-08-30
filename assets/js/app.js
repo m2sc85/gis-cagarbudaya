@@ -112,7 +112,7 @@ function syncSidebar() {
 }
 
 /* Basemap Layers */
-var cartoLight = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png", {
+var cartoLight = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
 });
@@ -335,7 +335,7 @@ $.getJSON("data/cagarbudaya.geojson", function (data) {
 map = L.map("map", {
   zoom: 10,
   center: [-5.486425, 122.599843],
-  layers: [googleStreets, boroughs, markerClusters, highlight],
+  layers: [cartoLight, boroughs, markerClusters, highlight],
   zoomControl: false,
   attributionControl: false
 });
