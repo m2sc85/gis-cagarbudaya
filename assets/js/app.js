@@ -335,7 +335,7 @@ $.getJSON("data/cagarbudaya.geojson", function (data) {
 map = L.map("map", {
   zoom: 10,
   center: [-5.486425, 122.599843],
-  layers: [cartoLight, boroughs, markerClusters, highlight],
+  layers: [googleStreets, boroughs, markerClusters, highlight],
   zoomControl: false,
   attributionControl: false
 });
