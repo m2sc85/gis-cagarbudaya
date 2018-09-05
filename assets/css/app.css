@@ -183,3 +183,10 @@ h2 { font-size: 18px; }
     display: none !important;
   }
 }
+
+i{
+  padding: 2px;
+}
+.modal-body i{
+  padding: 5px;
+}
