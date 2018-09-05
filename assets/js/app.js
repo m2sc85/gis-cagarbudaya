@@ -29,6 +29,13 @@ $("#full-extent-btn").click(function() {
   return false;
 });
 
+//cari koordinat
+$("#find-coordinate-btn").click(function() {
+  $("#findCoordinateModal").modal("show");
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
+
 $("#legend-btn").click(function() {
   $("#legendModal").modal("show");
   $(".navbar-collapse.in").collapse("hide");
