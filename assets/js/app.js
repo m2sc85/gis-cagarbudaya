@@ -308,7 +308,7 @@ var cagarbudaya = L.geoJson(null, {
       + "<tr><th>NAMA</th><td>" + feature.properties.Nama + "</td></tr>"
       + "<tr><th>JENIS</th><td>" + feature.properties.Jenis + "</td></tr>" 
       + "<tr><th>KETERANGAN</th><td>" + feature.properties.Sejarah + "</td></tr>" 
-      + "<tr><th>Gambar</th><td><img src='assets/img/'"+ feature.properties.FOTO + " width=70%></a></td></tr>" + "<table>";
+      + "<tr><th>Gambar</th><td><img src='assets/img/"+ feature.properties.FOTO +"'  width=70%></a></td></tr>" + "<table>";
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.Nama);
